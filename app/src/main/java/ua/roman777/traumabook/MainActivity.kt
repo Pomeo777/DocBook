@@ -33,13 +33,31 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val makePhotoModel by lazy { MakePhotoModel() }
 
-    private  val takeImageResult = registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
+    private  val takeImageResult =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { isSuccess ->
         Timber.d("registerForActivityResult().")
         if (isSuccess) {
             lifecycleScope.launch {
                 val patient = createPatient(makePhotoModel.cameraImagePath)
                 Timber.d("registerForActivityResult(). new patient: %s", patient.toString())
                 (application as TBookApplication).patientRepository.addNewUser(patient)
+            }
+        }
+    }
+
+    private val cameraPermission =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()){ granted ->
+        when{
+            granted -> {
+                takeImage()
+            }
+            !shouldShowRequestPermissionRationale(Manifest.permission.CAMERA) -> {
+                // todo permission denied, user have noted "Don't ask again".
+            }
+
+            else ->{
+
+               // todo "permission denied"
             }
         }
     }
@@ -73,27 +91,9 @@ class MainActivity : AppCompatActivity() {
         hideSplashScreen()
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == MY_PERMISSIONS_REQUEST_WORK_WITH_CAMERA){
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                takeImage()
-            }
-        }
-    }
 
     private fun createNewPatient() {
-
-        run {
-            val permissionUtil = PermissionUtil()
-            if (permissionUtil.showPermissionDialog(
-                    Manifest.permission.CAMERA,
-                    MY_PERMISSIONS_REQUEST_WORK_WITH_CAMERA,
-                    this)){
-                takeImage()
-            }
-
-        }
+        cameraPermission.launch(Manifest.permission.CAMERA)
     }
 
     private fun createPatient(photoPath: String): Patient{
