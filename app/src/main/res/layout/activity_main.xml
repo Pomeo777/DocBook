@@ -12,10 +12,11 @@
         android:id="@+id/iv_logo_splash_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/splash_logo"
+        android:src="@color/main_color"
         android:background="@color/white"
         android:clickable="false"
-        android:elevation="7dp"/>
+        android:elevation="7dp"
+        android:visibility="gone"/>
 
     <include
         android:id="@+id/app_bar_main"

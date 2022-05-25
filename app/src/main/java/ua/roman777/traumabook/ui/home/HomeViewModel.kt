@@ -1,13 +1,40 @@
 package ua.roman777.traumabook.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import kotlinx.coroutines.launch
+import ua.roman777.traumabook.dataBase.dataEntity.Patient
+import ua.roman777.traumabook.services.PatientRepository
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(private val patientRepository: PatientRepository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    lateinit var _patients: LiveData<MutableList<Patient>>
+
+    init{
+        fetchLocalData()
     }
-    val text: LiveData<String> = _text
+
+    private fun fetchLocalData() {
+        viewModelScope.launch {
+            _patients = patientRepository.getAllPatient().asLiveData()
+        }
+    }
+
+    private fun addPatient(patient: Patient){
+        viewModelScope.launch {
+            patientRepository.addNewUser(patient)
+        }
+    }
+
+    class HomeViewModelFactory(private val patientRepository: PatientRepository)
+        :ViewModelProvider.Factory{
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(HomeViewModel::class.java)){
+                @Suppress("UNCHECKED_CAST")
+                return HomeViewModel(patientRepository) as T
+            }
+            throw IllegalArgumentException("Unknown VieModel Class")
+        }
+        }
+
+
 }

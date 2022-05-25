@@ -6,11 +6,12 @@ package ua.roman777.traumabook.dataBase.dataEnums
  * date 23.05.2022
  * author email pomeo77777@gmail.com
  */
-enum class AccidentType {
-    ROAD_ACCIDENT,
-    ALTITUDE_ACCIDENT,
-    DOMESTIC_INJURY,
-    WAR_SHELL,
-    WAR_MINE,
-    WAR_WAVE
+enum class AccidentType(var acName: String) {
+    ROAD_ACCIDENT("ДТП"),
+    ALTITUDE_ACCIDENT("Падіння з висоти"),
+    DOMESTIC_INJURY("Побутова травма"),
+    WAR_SHELL("Вогнепальне поранення"),
+    WAR_MINE("Мінно-вибухова травма"),
+    WAR_WAVE("Дія вибухової хвилі"),
+    UNDEFINED("Невизначено")
 }

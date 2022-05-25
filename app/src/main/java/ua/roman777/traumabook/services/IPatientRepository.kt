@@ -1,7 +1,5 @@
-package ua.roman777.traumabook.dataBase.dao
+package ua.roman777.traumabook.services
 
-import android.database.sqlite.SQLiteQuery
-import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteQuery
 import kotlinx.coroutines.flow.Flow
 import ua.roman777.traumabook.dataBase.dataEntity.Patient
@@ -12,19 +10,10 @@ import ua.roman777.traumabook.dataBase.dataEntity.Patient
  * date 23.05.2022
  * author email pomeo77777@gmail.com
  */
-@Dao
-interface  PatientDao {
+interface IPatientRepository {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun addPatient(patient: Patient)
-
-    @Update
     suspend fun updatePatient(patient: Patient)
-
-    @RawQuery(observedEntities = [Patient::class])
-    fun getWithQuery(query: SupportSQLiteQuery): Flow<MutableList<Patient>>
-
-    @Query("SELECT * FROM patients")
+    fun getPatients(query: SupportSQLiteQuery): Flow<MutableList<Patient>>
     fun getAll(): Flow<MutableList<Patient>>
-
 }

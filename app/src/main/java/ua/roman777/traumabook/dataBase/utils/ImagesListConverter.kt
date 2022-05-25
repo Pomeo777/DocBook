@@ -31,4 +31,12 @@ class ImagesListConverter {
         data.trim { it <= ' ' }
         return if (data.isEmpty()) mutableListOf() else listOf(*data.split(",").toTypedArray())
     }
+
+    companion object {
+        @JvmStatic lateinit var instance: ImagesListConverter
+    }
+
+    init {
+        instance = this
+    }
 }

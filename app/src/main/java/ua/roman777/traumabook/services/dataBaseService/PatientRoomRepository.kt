@@ -1,0 +1,33 @@
+package ua.roman777.traumabook.services.dataBaseService
+
+import androidx.sqlite.db.SupportSQLiteQuery
+import kotlinx.coroutines.flow.Flow
+import ua.roman777.traumabook.application.TBookApplication
+import ua.roman777.traumabook.dataBase.dao.PatientDao
+import ua.roman777.traumabook.dataBase.dataEntity.Patient
+
+
+/**
+ * Created by Roman Fedchenko
+ * date 23.05.2022
+ * author email pomeo77777@gmail.com
+ */
+class PatientRoomRepository(private var dao: PatientDao){
+
+
+    suspend fun addPatient(patient: Patient) {
+        dao.addPatient(patient)
+    }
+
+    suspend fun updatePatient(patient: Patient) {
+        dao.updatePatient(patient)
+    }
+
+    fun getPatient(query: SupportSQLiteQuery): Flow<MutableList<Patient>> {
+        return dao.getWithQuery(query)
+    }
+
+    fun getAll(): Flow<MutableList<Patient>> {
+        return dao.getAll()
+    }
+}

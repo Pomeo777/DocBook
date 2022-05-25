@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable name="accidentConvertor" type="ua.roman777.traumabook.dataBase.utils.AccidentTypeConverter"/>
+        <variable
+            name="patient"
+            type="ua.roman777.traumabook.dataBase.dataEntity.Patient" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_margin="4dp"
+        android:background="@drawable/rounded_bacground_gray">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="85dp"
+                android:layout_height="85dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:cardElevation="0dp">
+                <ImageView
+                    android:id="@+id/iv_patient_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    src='@{patient.images.size() > 0 ? patient.images.get(0) : @drawable/ic_add}'/>
+
+            </androidx.cardview.widget.CardView>
+
+            <RelativeLayout
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="8dp"
+                android:background="@drawable/circle_main"
+                android:visibility="@{patient.images.size() > 0 ? View.VISIBLE : View.INVISIBLE}">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/white"
+                    android:text="@{String.valueOf(patient.images.size())}"/>
+            </RelativeLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_reg_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/cl_photo"
+            app:layout_constraintEnd_toStartOf="@+id/iv_edit"
+            android:layout_marginHorizontal="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="12sp"
+            android:textColor="@color/main_color"
+            android:text="@{patient.nameAndSurname}"
+            />
+
+        <TextView
+            android:id="@+id/tv_patient_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/cl_photo"
+            app:layout_constraintEnd_toStartOf="@+id/iv_edit"
+            app:layout_constraintTop_toBottomOf="@+id/tv_reg_date"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:textSize="16sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:text="@{patient.diagnosis}"
+            />
+
+        <TextView
+            android:id="@+id/tv_accident"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/cl_photo"
+            app:layout_constraintEnd_toStartOf="@+id/iv_edit"
+            app:layout_constraintTop_toBottomOf="@+id/tv_patient_name"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:text="@{accidentConvertor.StaticConvertor.toHealth(patient.accident)}"
+            />
+
+        <ImageView
+            android:id="@+id/iv_edit"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:src="@drawable/ic_edit"
+            />
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

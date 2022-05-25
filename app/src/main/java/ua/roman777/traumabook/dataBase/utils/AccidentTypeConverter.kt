@@ -10,10 +10,14 @@ import ua.roman777.traumabook.dataBase.dataEnums.AccidentType
  * author email pomeo77777@gmail.com
  */
 class AccidentTypeConverter {
+    @TypeConverter
+    fun toHealth(value: Int): String = enumValues<AccidentType>()[value].acName
 
     @TypeConverter
-    fun toHealth(value: Int) = enumValues<AccidentType>()[value]
+    fun fromHealth(value: AccidentType): Int = value.ordinal
 
-    @TypeConverter
-    fun fromHealth(value: AccidentType) = value.ordinal
+    companion object StaticConvertor{
+        fun toHealth(value: Int): String = enumValues<AccidentType>()[value].acName
+    }
+
 }
