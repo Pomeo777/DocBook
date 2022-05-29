@@ -1,6 +1,11 @@
 package ua.roman777.traumabook.dataBase.utils
 
 import androidx.room.TypeConverter
+import com.google.gson.Gson
+import timber.log.Timber
+import ua.roman777.traumabook.application.photoObjectToString
+import ua.roman777.traumabook.application.stringToPhotoObject
+import ua.roman777.traumabook.dataBase.dataEntity.Photo
 import java.util.*
 
 
@@ -12,13 +17,14 @@ import java.util.*
 class ImagesListConverter {
 
     @TypeConverter
-    fun fromList(list: List<String>): String {
+    fun fromList(list: MutableList<Photo>): String {
         return if (list.isNotEmpty()) {
             val sb = StringBuilder()
             var sep = ""
             for (s in list) {
-                sb.append(sep).append(s)
-                sep = ","
+                val string = Gson().photoObjectToString(s)
+                sb.append(sep).append(string)
+                sep = ";"
             }
             sb.toString()
         } else {
@@ -27,10 +33,14 @@ class ImagesListConverter {
     }
 
     @TypeConverter
-    fun toList(data: String): List<String> {
+    fun toList(data: String): MutableList<Photo> {
         data.trim { it <= ' ' }
-        return if (data.isEmpty()) mutableListOf() else listOf(*data.split(",").toTypedArray())
+        return if (data.isEmpty()) mutableListOf() else mutableListOf(*data.split(";")
+            .map { obj -> Gson().stringToPhotoObject(obj) }
+            .toTypedArray())
     }
+
+
 
     companion object {
         @JvmStatic lateinit var instance: ImagesListConverter

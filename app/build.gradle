@@ -2,7 +2,8 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id  'kotlin-kapt'
-}
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'}
 
 android {
     compileSdk 31
@@ -44,6 +45,7 @@ dependencies {
     def lifecycleVersion = '2.4.1'
     def coroutinesVersion = '1.5.0'
     final timber_version = '4.7.1'
+    def nav_version = "2.3.3"
 
     implementation 'androidx.databinding:databinding-runtime:7.2.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
@@ -52,13 +54,12 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0-rc01'
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.0-rc01'
     implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation "androidx.viewpager2:viewpager2:1.1.0-beta01"
 
     // Room components
     implementation "androidx.room:room-ktx:$roomVersion"
-//    kapt "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
-
     implementation "androidx.room:room-runtime:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
 
@@ -77,6 +78,11 @@ dependencies {
 
     //timber
     implementation "com.jakewharton.timber:timber:$timber_version"
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.9'
+
+
 
 
     testImplementation 'junit:junit:4.+'

@@ -1,0 +1,18 @@
+package ua.roman777.traumabook.dataBase.dataEntity
+
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
+/**
+ * Created by Roman Fedchenko
+ * date 26.05.2022
+ * author email pomeo77777@gmail.com
+ */
+@Parcelize
+data class Photo(var photoPath: String, var data: String) : Parcelable {
+
+    override fun toString(): String {
+        return "Photo(photoPath='$photoPath', data='$data')"
+    }
+}

@@ -4,17 +4,22 @@
 
     <data>
         <import type="android.view.View"/>
+        <import type="ua.roman777.traumabook.enums.PatientListItemElement"/>
         <variable name="accidentConvertor" type="ua.roman777.traumabook.dataBase.utils.AccidentTypeConverter"/>
         <variable
             name="patient"
             type="ua.roman777.traumabook.dataBase.dataEntity.Patient" />
+        <variable
+            name="clickListener"
+            type="ua.roman777.traumabook.utils.OnItemClickListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:layout_margin="4dp"
-        android:background="@drawable/rounded_bacground_gray">
+        android:background="@drawable/rounded_main_borber_rectangle"
+        android:onClick="@{v -> clickListener.onItemClick(patient, PatientListItemElement.EDIT.value)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_photo"
@@ -28,16 +33,18 @@
                 android:layout_height="85dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:cardElevation="0dp">
+                app:cardElevation="0dp"
+                android:onClick="@{v -> clickListener.onItemClick(patient, PatientListItemElement.SHOW_PHOTO.value)}">
                 <ImageView
                     android:id="@+id/iv_patient_photo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    src='@{patient.images.size() > 0 ? patient.images.get(0) : @drawable/ic_add}'/>
+                    src="@{patient.images.size() > 0 ? patient.images.get(patient.images.size()-1).photoPath : @drawable/ic_add_main}" />
 
             </androidx.cardview.widget.CardView>
 
             <RelativeLayout
+                android:id="@+id/rl_add_photo"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -45,14 +52,14 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/circle_white"
                 android:elevation="2dp"
-                android:visibility="@{patient.images.size() > 0 ? View.VISIBLE : View.INVISIBLE}">
+                android:onClick="@{v -> clickListener.onItemClick(patient, PatientListItemElement.EDIT_PHOTO_LIST.value)}">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
                     android:layout_centerInParent="true"
-                    android:text="@{String.valueOf(patient.images.size())}"
-                    android:textColor="@color/main_color" />
+                    android:src="@drawable/ic_add_main"
+                    />
             </RelativeLayout>
 
 

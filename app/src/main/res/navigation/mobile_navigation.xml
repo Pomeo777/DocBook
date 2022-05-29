@@ -9,7 +9,11 @@
         android:id="@+id/nav_home"
         android:name="ua.roman777.traumabook.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_patientPhotoFragment"
+            app:destination="@id/patientPhotoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
@@ -22,4 +26,17 @@
         android:name="ua.roman777.traumabook.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/patientPhotoFragment"
+        android:name="ua.roman777.traumabook.ui.photoViewer.PatientPhotoFragment"
+        android:label="fragment_patient_photo"
+        tools:layout="@layout/fragment_patient_photo" >
+        <argument
+            android:name="photoList"
+            app:argType="ua.roman777.traumabook.dataBase.dataEntity.Photo[]"
+            />
+        <argument
+            android:name="patientName"
+            />
+    </fragment>
 </navigation>

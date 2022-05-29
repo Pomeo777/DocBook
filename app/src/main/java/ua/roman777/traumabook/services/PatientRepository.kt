@@ -19,7 +19,7 @@ class PatientRepository(private val repository: IPatientRepository) {
         repository.addPatient(patient)
     }
 
-    suspend fun updateNewUser(patient: Patient){
+    suspend fun updateUser(patient: Patient){
         repository.updatePatient(patient)
     }
 

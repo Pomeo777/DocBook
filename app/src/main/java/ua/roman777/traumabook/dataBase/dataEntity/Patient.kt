@@ -1,6 +1,7 @@
 package ua.roman777.traumabook.dataBase.dataEntity
 
 import android.graphics.drawable.Drawable
+import android.os.Parcelable
 import android.text.TextUtils
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
@@ -10,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.RequestBuilder
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import kotlinx.parcelize.Parcelize
 import ua.roman777.traumabook.dataBase.PatientDB.Companion.DATABASE_NAME
 import ua.roman777.traumabook.dataBase.dataEnums.AccidentType
 import ua.roman777.traumabook.dataBase.utils.AccidentTypeConverter
@@ -22,6 +24,7 @@ import ua.roman777.traumabook.dataBase.utils.ImagesListConverter
  * author email pomeo77777@gmail.com
  */
 @Entity(tableName = DATABASE_NAME)
+@Parcelize
 data class Patient(
     @PrimaryKey @ColumnInfo(name = PATIENT_ID) var patientId: String = "123321",
     @ColumnInfo(name = DIAGNOSIS) var diagnosis: String = "",
@@ -32,8 +35,8 @@ data class Patient(
     @ColumnInfo(name = ACCIDENT) @TypeConverters(AccidentTypeConverter::class) var accident: Int = AccidentType.UNDEFINED.ordinal,
     @ColumnInfo(name = AO_INDEX) var AOIndex: String = "",
     @ColumnInfo(name = APP_REGISTRATION_DATE) var date: String = "",
-    @ColumnInfo(name = IMAGES) @TypeConverters(ImagesListConverter::class) var images: MutableList<String>  = mutableListOf<String>()
-    ){
+    @ColumnInfo(name = IMAGES) @TypeConverters(ImagesListConverter::class) var images: MutableList<Photo>  = mutableListOf<Photo>()
+    ): Parcelable{
 
     companion object {
         const val PATIENT_ID = "patientId"
@@ -48,25 +51,6 @@ data class Patient(
         const val IMAGES = "images"
     }
 
-
-    object DataBindingAdapter{
-        @JvmStatic
-        @BindingAdapter(value = ["src"], requireAll = false)
-        fun loadImage(view: ImageView, url: String?) {
-            if (!TextUtils.isEmpty(url)) {
-
-
-                val ro: RequestOptions = RequestOptions
-                    .diskCacheStrategyOf(DiskCacheStrategy.DATA)
-                    .centerCrop()
-                //                    .override(1000, 600);
-                Glide.with(view.context)
-                    .load( url)
-                    .apply(ro)
-                    .into(view)
-            }
-        }
-    }
 
 
     override fun toString(): String {

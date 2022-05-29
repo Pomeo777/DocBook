@@ -39,3 +39,4 @@
   *** rewind();
 }
 
+-keepnames class ua.roman777.traumabook.dataBase.dataEntity.Photo
