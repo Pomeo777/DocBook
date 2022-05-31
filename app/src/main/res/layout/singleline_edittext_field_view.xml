@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.textfield.TextInputLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sTil"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:hintEnabled="true"
+    app:errorEnabled="true"
+    app:endIconMode="clear_text"
+    app:endIconDrawable="@drawable/ic_clear_rounded_black"
+    android:textColorHint="@color/state_disabled_lightTheme"
+    app:errorIconDrawable="@drawable/ic_textfield_error"
+    app:boxStrokeErrorColor="@color/state_error_lightTheme"
+    app:boxStrokeColor="@color/text_input_layout_stroke_color"
+    app:boxStrokeWidthFocused="1dp"
+    app:boxBackgroundColor="@color/text_input_layout_bg_color"
+    app:boxCornerRadiusBottomEnd="12dp"
+    app:boxCornerRadiusTopEnd="12dp"
+    app:boxCornerRadiusBottomStart="12dp"
+    app:boxCornerRadiusTopStart="12dp">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/id_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:gravity="top"
+        android:inputType="textCapSentences|textPersonName"
+        android:layout_marginBottom="0dp"
+        android:textColorHint="@color/state_disabled_lightTheme" />
+
+</com.google.android.material.textfield.TextInputLayout>

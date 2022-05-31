@@ -15,12 +15,12 @@ import ua.roman777.traumabook.dataBase.dataEntity.Patient
 class PatientRoomRepository(private var dao: PatientDao){
 
 
-    suspend fun addPatient(patient: Patient) {
-        dao.addPatient(patient)
+    suspend fun addPatient(patient: Patient): Long {
+       return dao.addPatient(patient)
     }
 
-    suspend fun updatePatient(patient: Patient) {
-        dao.updatePatient(patient)
+    suspend fun updatePatient(patient: Patient): Int {
+       return dao.updatePatient(patient)
     }
 
     fun getPatient(query: SupportSQLiteQuery): Flow<MutableList<Patient>> {

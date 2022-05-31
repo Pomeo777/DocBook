@@ -3,12 +3,8 @@ package ua.roman777.traumabook.ui.home
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
-import android.content.Context
 import android.content.Intent
-import android.database.Cursor
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,9 +29,6 @@ import ua.roman777.traumabook.utils.RecyclerBindingAdapter
 import ua.roman777.traumabook.utils.activityContracts.AddPhotoFromCameraContract
 import ua.roman777.traumabook.utils.diffUtilCallbacks.PatientDiffUtilCallback
 import ua.roman777.traumabook.utils.setOnClickListener
-import java.text.DateFormat
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class HomeFragment : Fragment() {
@@ -144,8 +137,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val root: View = binding.root
-        return root
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -191,7 +183,7 @@ class HomeFragment : Fragment() {
             override fun onItemClick(item: Patient, element: String) {
                 when (element) {
                     PatientListItemElement.EDIT.value -> {
-                        //todo open info fragment
+                        editPatientInfo(item)
                     }
                     PatientListItemElement.SHOW_PHOTO.value -> {
                         openPatientPhotoViewer(item.images, item.nameAndSurname)
@@ -207,6 +199,12 @@ class HomeFragment : Fragment() {
 
 
         })
+    }
+
+    private fun editPatientInfo(item: Patient) {
+        val action = HomeFragmentDirections
+            .actionNavHomeToChangePatientDataFragment(item)
+        findNavController().navigate(action)
     }
 
     private fun addNewPhotoDialog(item: Patient) {

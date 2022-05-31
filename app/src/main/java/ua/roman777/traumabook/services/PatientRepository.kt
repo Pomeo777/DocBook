@@ -15,12 +15,12 @@ class PatientRepository(private val repository: IPatientRepository) {
         return repository.getAll()
     }
 
-    suspend fun addNewUser(patient: Patient){
-        repository.addPatient(patient)
+    suspend fun addNewUser(patient: Patient): Long{
+        return repository.addPatient(patient)
     }
 
-    suspend fun updateUser(patient: Patient){
-        repository.updatePatient(patient)
+    suspend fun updateUser(patient: Patient): Int{
+        return repository.updatePatient(patient)
     }
 
     //todo sync with server data

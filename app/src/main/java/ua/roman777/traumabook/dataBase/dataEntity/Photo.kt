@@ -10,9 +10,9 @@ import kotlinx.parcelize.Parcelize
  * author email pomeo77777@gmail.com
  */
 @Parcelize
-data class Photo(var photoPath: String, var data: String) : Parcelable {
+data class Photo(var photoPath: String, var data: String, var description: String = "") : Parcelable {
 
     override fun toString(): String {
-        return "Photo(photoPath='$photoPath', data='$data')"
+        return "Photo(photoPath='$photoPath', data='$data' description='$description')"
     }
 }

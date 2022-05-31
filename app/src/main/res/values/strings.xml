@@ -2,18 +2,22 @@
     <string name="app_name">TraumaBook</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_title">TraumaBook</string>
+    <string name="nav_header_subtitle">pomeo77777@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Налаштування</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="menu_gallery">Галерея</string>
     <string name="add_new_photo_dialog">Звідки Ви бажаєте додати фото?</string>
     <string name="add_photo_camera">Камера</string>
     <string name="add_photo_gallery">Галерея</string>
     <string name="patient">Пацієнт</string>
+    <string name="patient_name_hint">Ім\'я та Прізвище</string>
+    <string name="patient_age_hint">Вік пацієнта</string>
+    <string name="patient_AOIndex_hint">Індекс АО</string>
+    <string name="patient_accidentDate_hint">Дата травми</string>
+    <string name="patient_admissionDate_hint">Дата госпіталізації</string>
+    <string name="diagnosis">Діагноз</string>
+    <string name="edit_patient_view_title">Редагування пацієнта</string>
+    <string name="save_changes_text">Зберегти зміни</string>
 </resources>

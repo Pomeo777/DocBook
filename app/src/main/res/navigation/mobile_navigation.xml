@@ -8,24 +8,30 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="ua.roman777.traumabook.ui.home.HomeFragment"
-        android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_nav_home_to_patientPhotoFragment"
             app:destination="@id/patientPhotoFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_changePatientDataFragment"
+            app:destination="@id/changePatientDataFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="ua.roman777.traumabook.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/fragment_gallery" >
+        <action
+            android:id="@+id/action_nav_gallery_to_patientPhotoFragment"
+            app:destination="@id/patientPhotoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="ua.roman777.traumabook.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
     <fragment
         android:id="@+id/patientPhotoFragment"
         android:name="ua.roman777.traumabook.ui.photoViewer.PatientPhotoFragment"
@@ -33,10 +39,20 @@
         tools:layout="@layout/fragment_patient_photo" >
         <argument
             android:name="photoList"
-            app:argType="ua.roman777.traumabook.dataBase.dataEntity.Photo[]"
-            />
+            app:argType="ua.roman777.traumabook.dataBase.dataEntity.Photo[]" />
         <argument
-            android:name="patientName"
-            />
+            android:name="patientName" />
     </fragment>
+
+    <fragment
+        android:id="@+id/changePatientDataFragment"
+        android:name="ua.roman777.traumabook.ui.changePatient.ChangePatientDataFragment"
+        android:label="fragment_change_patient_data"
+        tools:layout="@layout/fragment_change_patient_data" >
+        <argument
+            android:name="patient"
+            app:argType="ua.roman777.traumabook.dataBase.dataEntity.Patient"/>
+    </fragment>
+
+
 </navigation>

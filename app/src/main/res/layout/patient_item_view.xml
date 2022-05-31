@@ -90,7 +90,7 @@
             android:textSize="16sp"
             android:maxLines="2"
             android:ellipsize="end"
-            android:text="@{patient.diagnosis}"
+            android:text="@{patient.nameAndSurname}"
             />
 
         <TextView

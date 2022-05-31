@@ -16,10 +16,10 @@ import ua.roman777.traumabook.dataBase.dataEntity.Patient
 interface  PatientDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun addPatient(patient: Patient)
+    suspend fun addPatient(patient: Patient): Long
 
     @Update
-    suspend fun updatePatient(patient: Patient)
+    suspend fun updatePatient(patient: Patient): Int
 
     @RawQuery(observedEntities = [Patient::class])
     fun getWithQuery(query: SupportSQLiteQuery): Flow<MutableList<Patient>>

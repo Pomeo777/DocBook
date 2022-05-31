@@ -12,8 +12,8 @@ import ua.roman777.traumabook.dataBase.dataEntity.Patient
  */
 interface IPatientRepository {
 
-    suspend fun addPatient(patient: Patient)
-    suspend fun updatePatient(patient: Patient)
+    suspend fun addPatient(patient: Patient): Long
+    suspend fun updatePatient(patient: Patient): Int
     fun getPatients(query: SupportSQLiteQuery): Flow<MutableList<Patient>>
     fun getAll(): Flow<MutableList<Patient>>
 }

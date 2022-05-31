@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.changePatient.ChangePatientDataFragment"
+    android:layout_marginVertical="@dimen/activity_vertical_margin"
+    android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
+
+    <ToggleButton
+        android:id="@+id/btnSaveChanges"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:textOff=""
+        android:textOn="@string/save_changes_text"
+        android:textColor="@color/enable_disable_text_color_selector"
+        android:drawableEnd="@drawable/ic_check_selector"
+        android:enabled="false"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+
+    <include layout="@layout/singleline_edittext_field_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/btnSaveChanges"
+        android:id="@+id/tilName"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+    <include layout="@layout/singleline_edittext_field_view"
+        android:id="@+id/tilAge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilName"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tilAOIndex"
+        android:layout_marginEnd="2dp"
+        android:layout_marginTop="4dp"
+        />
+
+    <include layout="@layout/singleline_edittext_field_view"
+        android:id="@+id/tilAOIndex"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tilAge"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        />
+
+    <include layout="@layout/singleline_edittext_field_view"
+        android:id="@+id/tilAccidentDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilAOIndex"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tilAdmissionDate"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        />
+
+    <include layout="@layout/singleline_edittext_field_view"
+        android:id="@+id/tilAdmissionDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilAOIndex"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tilAccidentDate"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        />
+
+    <include layout="@layout/multiline_edittext_field_view"
+        android:id="@+id/tilDiagnosis"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tilAccidentDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,12 +15,12 @@ import ua.roman777.traumabook.services.IPatientRepository
 class RoomPatientRepositoryImpl(private val dao: PatientDao): IPatientRepository {
     private val repository by lazy { PatientRoomRepository(dao) }
 
-    override suspend fun addPatient(patient: Patient) {
-        repository.addPatient(patient)
+    override suspend fun addPatient(patient: Patient): Long {
+        return repository.addPatient(patient)
     }
 
-    override suspend fun updatePatient(patient: Patient) {
-        repository.updatePatient(patient)
+    override suspend fun updatePatient(patient: Patient): Int {
+        return repository.updatePatient(patient)
     }
 
     override fun getPatients(query: SupportSQLiteQuery): Flow<MutableList<Patient>> {

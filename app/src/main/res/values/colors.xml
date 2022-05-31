@@ -15,4 +15,16 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+    <color name="state_disabled_lightTheme">#D2D3D9</color>
+    <color name="state_error_lightTheme">#DB583F</color>
+    <color name="primary_stroke_lightTheme">#D6D9DF</color>
+
+    <!-- background-->
+    <color name="primary_background_lightTheme">#FFFFFF</color>
+    <color name="secondary_background_lightTheme">#FBFBFC</color>
+    <color name="input_background_lightTheme">#F5F7F9</color>
+    <color name="success_background_lightTheme">#EAFBF5</color>
+    <color name="transparent_color">#4D333333</color>
+
+
 </resources>

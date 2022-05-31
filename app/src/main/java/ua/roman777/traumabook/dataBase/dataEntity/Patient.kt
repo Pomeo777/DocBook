@@ -29,7 +29,7 @@ data class Patient(
     @PrimaryKey @ColumnInfo(name = PATIENT_ID) var patientId: String = "123321",
     @ColumnInfo(name = DIAGNOSIS) var diagnosis: String = "",
     @ColumnInfo(name = NAME_AND_SURNAME) var nameAndSurname: String = "Пацієнт",
-    @ColumnInfo(name = AGE) var age: Int = 0,
+    @ColumnInfo(name = AGE) var age: String = "",
     @ColumnInfo(name = ADMISSION) var dateOfAdmission: String = "",
     @ColumnInfo(name = ACCIDENT_DATE) var accidentDate: String = "",
     @ColumnInfo(name = ACCIDENT) @TypeConverters(AccidentTypeConverter::class) var accident: Int = AccidentType.UNDEFINED.ordinal,
@@ -53,8 +53,41 @@ data class Patient(
 
 
 
+
     override fun toString(): String {
         return "Patient(patientId='$patientId', diagnosis='$diagnosis', nameAndSurname='$nameAndSurname', age=$age, dateOfAdmission='$dateOfAdmission', accidentDate='$accidentDate', accident=$accident, AOIndex='$AOIndex', date='$date', images=$images)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Patient) return false
+
+        if (patientId != other.patientId) return false
+        if (diagnosis != other.diagnosis) return false
+        if (nameAndSurname != other.nameAndSurname) return false
+        if (age != other.age) return false
+        if (dateOfAdmission != other.dateOfAdmission) return false
+        if (accidentDate != other.accidentDate) return false
+        if (accident != other.accident) return false
+        if (AOIndex != other.AOIndex) return false
+        if (date != other.date) return false
+        if (images != other.images) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = patientId.hashCode()
+        result = 31 * result + diagnosis.hashCode()
+        result = 31 * result + nameAndSurname.hashCode()
+        result = 31 * result + age.hashCode()
+        result = 31 * result + dateOfAdmission.hashCode()
+        result = 31 * result + accidentDate.hashCode()
+        result = 31 * result + accident
+        result = 31 * result + AOIndex.hashCode()
+        result = 31 * result + date.hashCode()
+        result = 31 * result + images.hashCode()
+        return result
     }
 
 
