@@ -16,7 +16,7 @@ import java.util.stream.Collectors
 
 class GalleryViewModel(private val patientRepository: PatientRepository) : ViewModel() {
 
-    private val photos = MutableLiveData<List<Photo>>()
+    val photos = MutableLiveData<List<Photo>>()
 
     init{
         fetchLocalData()
@@ -24,24 +24,27 @@ class GalleryViewModel(private val patientRepository: PatientRepository) : ViewM
 
     private fun fetchLocalData() {
         viewModelScope.launch {
-            photos.postValue(
-                patientRepository.getAllPatient().forEach{
-
-                }
-
-
-
-
-            )
-
-
+            val collectedPhoto = mutableListOf<Photo>()
+            patientRepository.getAllPatient().last().forEach{ patient ->
+                setImagesDescription(patient).let { collectedPhoto.addAll(it.images) }
+            }
+            photos.postValue(collectedPhoto)
         }
     }
 
-    private fun setImagesDescription(patients: Patient){
-        for(p in patient){
-            p.description = patient.nameAndSurname
+    private fun setImagesDescription(patient: Patient): Patient {
+        for(i in patient.images){
+            i.description = patient.nameAndSurname
         }
+        return patient
+    }
+
+    private fun collectImages(patients: List<Patient>): MutableList<Photo> {
+        val photos = mutableListOf<Photo>()
+        for(p in patients){
+            photos.addAll(p.images)
+        }
+        return photos
     }
 
 

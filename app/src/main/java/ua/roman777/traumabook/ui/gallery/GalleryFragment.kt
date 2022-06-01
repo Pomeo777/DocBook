@@ -46,12 +46,16 @@ class GalleryFragment : Fragment() {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
         binding.rvPortfolio.layoutManager = setGridlayoutManager()
-        galleryViewModel.text.observe(viewLifecycleOwner, Observer {
+        galleryViewModel.photos.observe(viewLifecycleOwner) {
             adapter =
-                RecyclerBindingAdapter<Photo>(R.layout.gallery_photo_item_view, BR.photo, it.toMutableList())
+                RecyclerBindingAdapter(
+                    R.layout.gallery_photo_item_view,
+                    BR.photo,
+                    it.toMutableList()
+                )
             setItemClickListener()
             binding.rvPortfolio.adapter = adapter
-        })
+        }
         return root
     }
 
