@@ -38,6 +38,7 @@ class RecyclerBindingAdapter<T>(var holderLayout: Int, var variableId: Int, var 
 //        });
         holder.getBinding().setVariable(variableId, item)
         holder.getBinding().setVariable(BR.clickListener, onItemClickListener)
+        holder.getBinding().setVariable(BR.position, position)
     }
 
     override fun getItemCount(): Int {
@@ -72,5 +73,5 @@ class BindingHolder(v: View) : RecyclerView.ViewHolder(v) {
 }
 
 interface OnItemClickListener<T> {
-    fun onItemClick(item: T, element: String)
+    fun onItemClick(item: T, position: Int, element: String)
 }

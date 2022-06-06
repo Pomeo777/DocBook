@@ -25,6 +25,9 @@ interface  PatientDao {
     fun getWithQuery(query: SupportSQLiteQuery): Flow<MutableList<Patient>>
 
     @Query("SELECT * FROM patients")
-    fun getAll(): Flow<MutableList<Patient>>
+    fun getAllFlow(): Flow<MutableList<Patient>>
+
+    @Query("SELECT * FROM patients")
+    fun getAll(): MutableList<Patient>
 
 }

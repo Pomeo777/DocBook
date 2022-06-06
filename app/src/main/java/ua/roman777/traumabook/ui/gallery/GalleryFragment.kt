@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import timber.log.Timber
 import ua.roman777.traumabook.BR
 import ua.roman777.traumabook.R
 import ua.roman777.traumabook.application.TBookApplication
@@ -46,17 +47,22 @@ class GalleryFragment : Fragment() {
         _binding = FragmentGalleryBinding.inflate(inflater, container, false)
         val root: View = binding.root
         binding.rvPortfolio.layoutManager = setGridlayoutManager()
+        return root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         galleryViewModel.photos.observe(viewLifecycleOwner) {
+            Timber.d("onViewCreated(). list: %s", it.toString())
             adapter =
                 RecyclerBindingAdapter(
                     R.layout.gallery_photo_item_view,
                     BR.photo,
                     it.toMutableList()
                 )
-            setItemClickListener()
             binding.rvPortfolio.adapter = adapter
+            setItemClickListener()
         }
-        return root
     }
 
 
@@ -78,12 +84,12 @@ class GalleryFragment : Fragment() {
 
     private fun setItemClickListener(){
         adapter!!.setOnItemClickListener(object : OnItemClickListener<Photo> {
-            override fun onItemClick(item: Photo, element: String) {
+            override fun onItemClick(item: Photo, position: Int, element: String) {
                 when (element) {
                     PatientListItemElement.EDIT.value -> {
                     }
                     PatientListItemElement.SHOW_PHOTO.value -> {
-                        openPhotoViewer(item)
+                        openPhotoViewer(galleryViewModel.photos.value!!, position)
                     }
                     PatientListItemElement.SHOW_PATIENT_INFO.value -> {
                     }
@@ -94,9 +100,11 @@ class GalleryFragment : Fragment() {
         })
     }
 
-    private fun openPhotoViewer(item: Photo) {
+    private fun openPhotoViewer(items: List<Photo>, position: Int) {
         val action = GalleryFragmentDirections
-            .actionNavGalleryToPatientPhotoFragment(mutableListOf(item).toTypedArray(), item.description)
+            .actionNavGalleryToPatientPhotoFragment(items.toTypedArray(),
+                items[position].description,
+                position)
         findNavController().navigate(action)
     }
 }

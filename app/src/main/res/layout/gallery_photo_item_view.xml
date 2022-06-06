@@ -6,7 +6,9 @@
         <variable
             name="photo"
             type="ua.roman777.traumabook.dataBase.dataEntity.Photo" />
-
+        <variable
+            name="position"
+            type="Integer" />
         <variable
             name="clickListener"
             type="ua.roman777.traumabook.utils.OnItemClickListener" />
@@ -27,7 +29,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:cardElevation="0dp"
-                android:onClick="@{v -> clickListener.onItemClick(photo, PatientListItemElement.SHOW_PHOTO.value)}">
+                android:onClick="@{v -> clickListener.onItemClick(photo, position,  PatientListItemElement.SHOW_PHOTO.value)}">
                 <ImageView
                     android:id="@+id/iv_patient_photo"
                     android:layout_width="match_parent"

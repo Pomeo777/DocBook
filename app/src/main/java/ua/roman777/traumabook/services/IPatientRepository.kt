@@ -15,5 +15,6 @@ interface IPatientRepository {
     suspend fun addPatient(patient: Patient): Long
     suspend fun updatePatient(patient: Patient): Int
     fun getPatients(query: SupportSQLiteQuery): Flow<MutableList<Patient>>
-    fun getAll(): Flow<MutableList<Patient>>
+    fun getAllFlow(): Flow<MutableList<Patient>>
+    fun getAll(): MutableList<Patient>
 }

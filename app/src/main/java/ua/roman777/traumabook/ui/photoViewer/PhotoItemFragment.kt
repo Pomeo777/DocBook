@@ -25,16 +25,7 @@ class PhotoItemFragment: Fragment() {
     private var _binding: PhotoItemFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var clickListener: OnItemClickListener<View>
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        try {
-            clickListener = (parentFragment as OnItemClickListener<View>)
-        } catch (e: Exception) {
-            Timber.e(e)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -51,10 +42,6 @@ class PhotoItemFragment: Fragment() {
         val photo = arguments?.getParcelable(PHOTO_OBJECT)?: Photo("","")
         Timber.d("onViewCreated(). photo = %s", photo)
         binding.setVariable(BR.photo, photo)
-        binding.ivPhoto.setOnClickListener(300){
-            Timber.d("onViewCreated(). click()")
-            clickListener.onItemClick(it, "")
-        }
     }
 
 

@@ -20,4 +20,6 @@
     <string name="diagnosis">Діагноз</string>
     <string name="edit_patient_view_title">Редагування пацієнта</string>
     <string name="save_changes_text">Зберегти зміни</string>
+    <string name="menu_home">Головна</string>
+    <string name="main_page_title">Головна</string>
 </resources>

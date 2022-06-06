@@ -1,18 +1,14 @@
 package ua.roman777.traumabook.ui.gallery
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.forEach
-import kotlinx.coroutines.flow.last
-import kotlinx.coroutines.flow.toList
+import androidx.lifecycle.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.newSingleThreadContext
+import timber.log.Timber
 import ua.roman777.traumabook.dataBase.dataEntity.Patient
 import ua.roman777.traumabook.dataBase.dataEntity.Photo
 import ua.roman777.traumabook.services.PatientRepository
-import java.util.stream.Collectors
 
 class GalleryViewModel(private val patientRepository: PatientRepository) : ViewModel() {
 
@@ -23,12 +19,13 @@ class GalleryViewModel(private val patientRepository: PatientRepository) : ViewM
     }
 
     private fun fetchLocalData() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val collectedPhoto = mutableListOf<Photo>()
-            patientRepository.getAllPatient().last().forEach{ patient ->
+            patientRepository.getAllPatient().forEach{ patient ->
                 setImagesDescription(patient).let { collectedPhoto.addAll(it.images) }
+            }.also {
+                photos.postValue(collectedPhoto)
             }
-            photos.postValue(collectedPhoto)
         }
     }
 
@@ -38,15 +35,6 @@ class GalleryViewModel(private val patientRepository: PatientRepository) : ViewM
         }
         return patient
     }
-
-    private fun collectImages(patients: List<Patient>): MutableList<Photo> {
-        val photos = mutableListOf<Photo>()
-        for(p in patients){
-            photos.addAll(p.images)
-        }
-        return photos
-    }
-
 
     class GalleryViewModelFactory(private val patientRepository: PatientRepository)
         : ViewModelProvider.Factory{

@@ -180,7 +180,7 @@ class HomeFragment : Fragment() {
 
     private fun setItemClickListener(){
         adapter!!.setOnItemClickListener(object : OnItemClickListener<Patient>{
-            override fun onItemClick(item: Patient, element: String) {
+            override fun onItemClick(item: Patient, position: Int, element: String) {
                 when (element) {
                     PatientListItemElement.EDIT.value -> {
                         editPatientInfo(item)
@@ -246,7 +246,7 @@ class HomeFragment : Fragment() {
 
     private fun openPatientPhotoViewer(list: MutableList<Photo>, patientName: String) {
         val action = HomeFragmentDirections
-            .actionNavHomeToPatientPhotoFragment(list.toTypedArray(), patientName)
+            .actionNavHomeToPatientPhotoFragment(list.toTypedArray(), patientName, 0)
         findNavController().navigate(action)
     }
 

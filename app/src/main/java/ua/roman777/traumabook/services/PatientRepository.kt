@@ -11,7 +11,11 @@ import ua.roman777.traumabook.dataBase.dataEntity.Patient
  */
 class PatientRepository(private val repository: IPatientRepository) {
 
-    fun getAllPatient(): Flow<MutableList<Patient>>{
+    fun getAllPatientFlow(): Flow<MutableList<Patient>>{
+        return repository.getAllFlow()
+    }
+
+    fun getAllPatient(): MutableList<Patient>{
         return repository.getAll()
     }
 
@@ -22,6 +26,8 @@ class PatientRepository(private val repository: IPatientRepository) {
     suspend fun updateUser(patient: Patient): Int{
         return repository.updatePatient(patient)
     }
+
+
 
     //todo sync with server data
 }

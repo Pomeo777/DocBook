@@ -2,7 +2,6 @@ package ua.roman777.traumabook.services.dataBaseService
 
 import androidx.sqlite.db.SupportSQLiteQuery
 import kotlinx.coroutines.flow.Flow
-import ua.roman777.traumabook.application.TBookApplication
 import ua.roman777.traumabook.dataBase.dao.PatientDao
 import ua.roman777.traumabook.dataBase.dataEntity.Patient
 
@@ -27,7 +26,11 @@ class PatientRoomRepository(private var dao: PatientDao){
         return dao.getWithQuery(query)
     }
 
-    fun getAll(): Flow<MutableList<Patient>> {
+    fun getAllFlow(): Flow<MutableList<Patient>> {
+        return dao.getAllFlow()
+    }
+
+    fun getAll(): MutableList<Patient> {
         return dao.getAll()
     }
 }

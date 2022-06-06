@@ -3,29 +3,24 @@ package ua.roman777.traumabook.ui.photoViewer
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.HandlerCompat.postDelayed
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import timber.log.Timber
 import ua.roman777.traumabook.dataBase.dataEntity.Photo
 import ua.roman777.traumabook.databinding.FragmentPatientPhotoBinding
-import ua.roman777.traumabook.utils.OnItemClickListener
-import ua.roman777.traumabook.utils.setOnClickListener
 
 /**
  * An example full-screen fragment that shows and hides the system UI (i.e.
  * status bar and navigation/system bar) with user interaction.
  */
-class PatientPhotoFragment : Fragment(), OnItemClickListener<View> {
+class PatientPhotoFragment : Fragment(){
 //    private val hideHandler = Handler(Looper.myLooper()!!)
 //
 //    @Suppress("InlinedApi")
@@ -57,7 +52,8 @@ class PatientPhotoFragment : Fragment(), OnItemClickListener<View> {
 
     private var photos: List<Photo> = mutableListOf()
     private var patientName = ""
-    val args: PatientPhotoFragmentArgs by navArgs()
+    private var imgPosition = 0
+    private val args: PatientPhotoFragmentArgs by navArgs()
     private val viewModel: PatientPhotosViewModel by viewModels{
         PatientPhotosViewModel.PatientPhotosViewModelFactory(photos)
     }
@@ -66,6 +62,7 @@ class PatientPhotoFragment : Fragment(), OnItemClickListener<View> {
         super.onAttach(context)
         photos = args.photoList.toMutableList()
         patientName = args.patientName
+        imgPosition = args.imgPosition
         Timber.d("onAttach(). photos = %s", photos)
 
     }
@@ -95,7 +92,9 @@ class PatientPhotoFragment : Fragment(), OnItemClickListener<View> {
 
             binding.vpPhoto.adapter = PhotoViewPagerAdapter(this, it)
             binding.vpPhoto.offscreenPageLimit = 3
-
+            binding.vpPhoto.postDelayed({
+                binding.vpPhoto.setCurrentItem(imgPosition, false)
+            }, 100)
         }
     }
 
@@ -187,7 +186,4 @@ class PatientPhotoFragment : Fragment(), OnItemClickListener<View> {
         _binding = null
     }
 
-    override fun onItemClick(item: View, element: String) {
-//        toggle()
-    }
 }

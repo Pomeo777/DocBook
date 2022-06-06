@@ -1,16 +1,11 @@
 package ua.roman777.traumabook.ui.home
 
-import android.content.Context
-import android.net.Uri
 import androidx.lifecycle.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import ua.roman777.traumabook.application.MyAppGlideModel
-import ua.roman777.traumabook.application.TBookApplication
 import ua.roman777.traumabook.dataBase.dataEntity.Patient
 import ua.roman777.traumabook.dataBase.dataEntity.Photo
 import ua.roman777.traumabook.services.PatientRepository
-import ua.roman777.traumabook.utils.ImageFilePathDeterminer
 import java.text.DateFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -26,7 +21,7 @@ class HomeViewModel(private val patientRepository: PatientRepository) : ViewMode
 
     private fun fetchLocalData() {
         viewModelScope.launch {
-            _patients = patientRepository.getAllPatient().asLiveData()
+            _patients = patientRepository.getAllPatientFlow().asLiveData()
         }
     }
 

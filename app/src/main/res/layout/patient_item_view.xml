@@ -10,6 +10,9 @@
             name="patient"
             type="ua.roman777.traumabook.dataBase.dataEntity.Patient" />
         <variable
+            name="position"
+            type="Integer" />
+        <variable
             name="clickListener"
             type="ua.roman777.traumabook.utils.OnItemClickListener" />
     </data>
@@ -19,7 +22,7 @@
         android:padding="16dp"
         android:layout_margin="4dp"
         android:background="@drawable/rounded_main_borber_rectangle"
-        android:onClick="@{v -> clickListener.onItemClick(patient, PatientListItemElement.EDIT.value)}">
+        android:onClick="@{v -> clickListener.onItemClick(patient, position, PatientListItemElement.EDIT.value)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_photo"
@@ -34,7 +37,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:cardElevation="0dp"
-                android:onClick="@{v -> clickListener.onItemClick(patient, PatientListItemElement.SHOW_PHOTO.value)}">
+                android:onClick="@{v -> clickListener.onItemClick(patient, 0, PatientListItemElement.SHOW_PHOTO.value)}">
                 <ImageView
                     android:id="@+id/iv_patient_photo"
                     android:layout_width="match_parent"
@@ -52,7 +55,7 @@
                 android:layout_margin="8dp"
                 android:background="@drawable/circle_white"
                 android:elevation="2dp"
-                android:onClick="@{v -> clickListener.onItemClick(patient, PatientListItemElement.EDIT_PHOTO_LIST.value)}">
+                android:onClick="@{v -> clickListener.onItemClick(patient, 0, PatientListItemElement.EDIT_PHOTO_LIST.value)}">
 
                 <ImageView
                     android:layout_width="20dp"

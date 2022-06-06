@@ -27,7 +27,11 @@ class RoomPatientRepositoryImpl(private val dao: PatientDao): IPatientRepository
         return repository.getPatient(query)
     }
 
-    override fun getAll(): Flow<MutableList<Patient>> {
-       return repository.getAll()
+    override fun getAllFlow(): Flow<MutableList<Patient>> {
+       return repository.getAllFlow()
+    }
+
+    override fun getAll(): MutableList<Patient> {
+        return repository.getAll()
     }
 }
