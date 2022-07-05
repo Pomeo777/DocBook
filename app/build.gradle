@@ -37,6 +37,7 @@ android {
     dataBinding {
         enabled = true
     }
+    namespace 'ua.roman777.traumabook'
 }
 
 dependencies {
@@ -47,14 +48,15 @@ dependencies {
     def coroutinesVersion = '1.5.0'
     final timber_version = '4.7.1'
     def nav_version = "2.3.3"
+    def koinVersion = "3.1.2"
 
-    implementation 'androidx.databinding:databinding-runtime:7.2.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.6.0'
+    implementation 'androidx.databinding:databinding-runtime:7.2.1'
+    implementation 'androidx.appcompat:appcompat:1.4.2'
+    implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0-rc01'
-    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0-rc01'
-    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.0'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.0'
+    implementation "androidx.activity:activity-ktx:1.5.0"
     implementation "androidx.viewpager2:viewpager2:1.1.0-beta01"
 
     // Room components
@@ -82,6 +84,11 @@ dependencies {
 
     //gson
     implementation 'com.google.code.gson:gson:2.8.9'
+
+    //koin
+    implementation "io.insert-koin:koin-core:$koinVersion"
+    implementation "io.insert-koin:koin-android:$koinVersion"
+    testImplementation "io.insert-koin:koin-test:$koinVersion"
 
 
 
