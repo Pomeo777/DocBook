@@ -6,7 +6,7 @@
     <data>
         <variable
             name="model"
-            type="ua.roman777.traumabook.ui.home.HomeViewModel" />
+            type="ua.roman777.traumabook.presentation.ui.home.HomeViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

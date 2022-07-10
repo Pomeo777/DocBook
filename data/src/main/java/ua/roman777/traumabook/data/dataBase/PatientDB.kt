@@ -1,0 +1,29 @@
+package ua.roman777.traumabook.data.dataBase
+
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import ua.roman777.traumabook.data.dataBase.PatientDB.Companion.DATABASE_VERSION
+import ua.roman777.traumabook.data.dataBase.dao.PatientDao
+import ua.roman777.traumabook.data.dataBase.dataBaseUtils.converters.AccidentTypeConverter
+import ua.roman777.traumabook.data.dataBase.dataBaseUtils.converters.ImagesListConverter
+import ua.roman777.traumabook.data.patientStorage.PatientDBModel
+
+
+/**
+ * Created by Roman Fedchenko
+ * date 23.05.2022
+ * author email pomeo77777@gmail.com
+ */
+@Database(entities = [PatientDBModel::class], version = DATABASE_VERSION, exportSchema = false)
+@TypeConverters(AccidentTypeConverter::class, ImagesListConverter::class)
+abstract class PatientDB: RoomDatabase() {
+
+    abstract fun patientDao(): PatientDao
+
+    companion object{
+        const val DATABASE_NAME = "patients"
+        const val DATABASE_VERSION = 1
+    }
+}
+

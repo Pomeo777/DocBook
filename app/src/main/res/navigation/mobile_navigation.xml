@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="ua.roman777.traumabook.ui.home.HomeFragment"
+        android:name="ua.roman777.traumabook.presentation.ui.home.HomeFragment"
         tools:layout="@layout/fragment_home"
         android:label="@string/main_page_title">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="ua.roman777.traumabook.ui.gallery.GalleryFragment"
+        android:name="ua.roman777.traumabook.presentation.ui.gallery.GalleryFragment"
         tools:layout="@layout/fragment_gallery" >
         <action
             android:id="@+id/action_nav_gallery_to_patientPhotoFragment"
@@ -29,17 +29,17 @@
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="ua.roman777.traumabook.ui.slideshow.SlideshowFragment"
+        android:name="ua.roman777.traumabook.presentation.ui.slideshow.SlideshowFragment"
         tools:layout="@layout/fragment_slideshow" />
 
     <fragment
         android:id="@+id/patientPhotoFragment"
-        android:name="ua.roman777.traumabook.ui.photoViewer.PatientPhotoFragment"
+        android:name="ua.roman777.traumabook.presentation.ui.photoViewer.PatientPhotoFragment"
         android:label="fragment_patient_photo"
         tools:layout="@layout/fragment_patient_photo" >
         <argument
             android:name="photoList"
-            app:argType="ua.roman777.traumabook.dataBase.dataEntity.Photo[]" />
+            app:argType="ua.roman777.domain.models.Photo[]" />
         <argument
             android:name="patientName" />
         <argument
@@ -49,12 +49,12 @@
 
     <fragment
         android:id="@+id/changePatientDataFragment"
-        android:name="ua.roman777.traumabook.ui.changePatient.ChangePatientDataFragment"
+        android:name="ua.roman777.traumabook.presentation.ui.editPatient.EditPatientDataFragment"
         android:label="fragment_change_patient_data"
         tools:layout="@layout/fragment_change_patient_data" >
         <argument
             android:name="patient"
-            app:argType="ua.roman777.traumabook.dataBase.dataEntity.Patient"/>
+            app:argType="ua.roman777.domain.models.Patient"/>
     </fragment>
 
 

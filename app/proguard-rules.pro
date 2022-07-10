@@ -21,10 +21,6 @@
 #-renamesourcefileattribute SourceFile
 
 -dontobfuscate
-#room
--keep class * extends androidx.room.RoomDatabase
--keep @androidx.room.Entity class *
--dontwarn androidx.room.paging.**
 
 #glide
 -keep public class * implements com.bumptech.glide.module.GlideModule
@@ -39,4 +35,6 @@
   *** rewind();
 }
 
--keepnames class ua.roman777.traumabook.dataBase.dataEntity.Photo
+-keepnames class ua.roman777.domain.models.Photo
+-keepnames class ua.roman777.domain.models.Patient
+-keepnames class ua.roman777.traumabook.data.patientStorage.PatientDBModel

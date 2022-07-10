@@ -4,17 +4,17 @@
 
     <data>
         <import type="android.view.View"/>
-        <import type="ua.roman777.traumabook.enums.PatientListItemElement"/>
-        <variable name="accidentConvertor" type="ua.roman777.traumabook.dataBase.utils.AccidentTypeConverter"/>
+        <import type="ua.roman777.traumabook.presentation.enums.PatientListItemElement"/>
+        <variable name="accidentConvertor" type="ua.roman777.traumabook.data.dataBase.dataBaseUtils.converters.AccidentTypeConverter"/>
         <variable
             name="patient"
-            type="ua.roman777.traumabook.dataBase.dataEntity.Patient" />
+            type="ua.roman777.domain.models.Patient" />
         <variable
             name="position"
             type="Integer" />
         <variable
             name="clickListener"
-            type="ua.roman777.traumabook.utils.OnItemClickListener" />
+            type="ua.roman777.traumabook.presentation.utils.OnItemClickListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

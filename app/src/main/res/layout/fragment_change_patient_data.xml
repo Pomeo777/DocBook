@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.changePatient.ChangePatientDataFragment"
+    tools:context=".presentation.ui.editPatient.EditPatientDataFragment"
     android:layout_marginVertical="@dimen/activity_vertical_margin"
     android:layout_marginHorizontal="@dimen/activity_horizontal_margin">
 

@@ -2,16 +2,16 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-        <import type="ua.roman777.traumabook.enums.PatientListItemElement"/>
+        <import type="ua.roman777.traumabook.presentation.enums.PatientListItemElement"/>
         <variable
             name="photo"
-            type="ua.roman777.traumabook.dataBase.dataEntity.Photo" />
+            type="ua.roman777.domain.models.Photo" />
         <variable
             name="position"
             type="Integer" />
         <variable
             name="clickListener"
-            type="ua.roman777.traumabook.utils.OnItemClickListener" />
+            type="ua.roman777.traumabook.presentation.utils.OnItemClickListener" />
     </data>
 
 
