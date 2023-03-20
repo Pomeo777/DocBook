@@ -11,7 +11,7 @@ on:
         options:
           - debug
           - release
-      branch:
+      branchName:
         description: "Branch name"
           required: false
           default: 'development'
