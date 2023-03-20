@@ -30,10 +30,6 @@ jobs:
       APK_FILE_PATH_RELEASE: 'app/build/outputs/apk/release/app-debug.apk'
 
 
-      APK_NAME_VALUE: ""
-      APK_FILE_PATH: ""
-
-
     steps:
     - name: Checkout to branch
       if: inputs.branchName != ${{ github.ref_name }}
@@ -46,16 +42,16 @@ jobs:
       id: apkFilename
       with:
         cond: $BUILD_TYPE == 'release'
-        if_true: $APK_NAME_RELEASE
-        if_false: $APK_NAME_DEBUG
+        if_true: env.APK_NAME_RELEASE
+        if_false: env.APK_NAME_DEBUG
 
     - name: Setup file path
       uses: haya14busa/action-cond@v1
       id: apkFilepath
       with:
         cond: $BUILD_TYPE == 'release'
-        if_true: $APK_FILE_PATH_RELEASE
-        if_false: $APK_FILE_PATH_DEBUG
+        if_true: env.APK_FILE_PATH_RELEASE
+        if_false: env.APK_FILE_PATH_DEBUG
 
     - name: Use conditional value
       run: echo "${{ steps.apkFilepath.outputs.value }}"
