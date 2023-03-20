@@ -41,7 +41,7 @@ jobs:
         git checkout ${{inputs.branch}}
 
     - name: Setup outputs
-      run:
+      run: |
         if: [$BUILD_TYPE == 'debug']; than
           APK_NAME_VALUE=$APK_NAME_DEBUG
           APK_FILE_PATH=$APK_FILE_PATH_DEBUG
@@ -62,8 +62,8 @@ jobs:
       run: chmod +x gradlew
 
     - name: Build with Gradle
-      run:
-        if: $BUILD_TYPE == 'debug'
+      run: |
+        if: [$BUILD_TYPE == 'debug']; than
           ./gradlew assembleDebug
         else:
           ./gradlew assembleRelease
