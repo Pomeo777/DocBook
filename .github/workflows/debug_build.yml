@@ -1,18 +1,55 @@
 name: Debug build
 
 on:
-  push:
-    branches: [ "ci_test" ]
-  pull_request:
-    branches: [ "ci_test" ]
+  workflow_dispatch:
+    inputs:
+      buildType:
+        description: "Build type"
+        required: false
+        default: 'debug'
+        type: choice
+        options:
+          - debug
+          - release
+      branch:
+        description: "Branch name"
+          required: false
+          default: 'development'
+
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
+    env:
+      BUILD_TYPE: ${{inputs.buildType}}
+      APK_NAME_DEBUG: 'app-debug.apk'
+      APK_NAME_RELEASE: 'app-release.apk'
+      APK_FILE_PATH_DEBUG: 'app/build/outputs/apk/debug/app-debug.apk'
+      APK_FILE_PATH_RELEASE: 'app/build/outputs/apk/release/app-debug.apk'
+
+
+      APK_NAME_VALUE: ""
+      APK_FILE_PATH: ""
+
+
     steps:
+    - name: Checkout to branch
+      if: inputs.branch != "${GITHUB_HEAD_REF}"
+      run:
+        git checkout ${{inputs.branch}}
+
+    - name: Setup outputs
+      run:
+        if: [$BUILD_TYPE == 'debug']; than
+          APK_NAME_VALUE=$APK_NAME_DEBUG
+          APK_FILE_PATH=$APK_FILE_PATH_DEBUG
+        else:
+          APK_NAME_VALUE=$APK_NAME_RELEASE
+          APK_FILE_PATH=$APK_FILE_PATH_RELEASE
+
     - uses: actions/checkout@v3
+
     - name: set up JDK 11
       uses: actions/setup-java@v3
       with:
@@ -22,25 +59,16 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+
     - name: Build with Gradle
-      run: ./gradlew assembleDebug
+      run:
+        if: $BUILD_TYPE == 'debug'
+          ./gradlew assembleDebug
+        else:
+          ./gradlew assembleRelease
+
     - name: Upload APK
       uses: actions/upload-artifact@v2
       with:
-        name: app-debug.apk
-        path: app/build/outputs/apk/debug/app-debug.apk
-
-  download:
-
-    needs: build
-
-    runs-on: windows-latest
-
-    steps:
-      - name: Download a Build Artifact
-        uses: actions/download-artifact@v2.1.1
-        with:
-          # Artifact name
-          name: app-debug.apk
-          # Destination path
-          path: /home/roman
+        name: $APK_NAME
+        path: $APK_FILE_PATH
