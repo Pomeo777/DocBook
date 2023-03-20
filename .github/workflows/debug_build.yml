@@ -45,9 +45,13 @@ jobs:
       run: |
         if [[$BUILD_TYPE == 'debug'][; than
           APK_NAME_VALUE=$APK_NAME_DEBUG
-          APK_FILE_PATH=$APK_FILE_PATH_DEBUG
         else
           APK_NAME_VALUE=$APK_NAME_RELEASE
+        fi
+        
+         if [[$BUILD_TYPE == 'debug'][; than
+          APK_FILE_PATH=$APK_FILE_PATH_DEBUG
+        else
           APK_FILE_PATH=$APK_FILE_PATH_RELEASE
         fi
     
