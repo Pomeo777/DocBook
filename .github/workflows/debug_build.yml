@@ -21,6 +21,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+
     env:
       BUILD_TYPE: ${{inputs.buildType}}
       APK_NAME_DEBUG: 'app-debug.apk'
