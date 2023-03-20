@@ -32,7 +32,7 @@ jobs:
 
   download:
 
-    needs: job_1
+    needs: build
 
     runs-on: windows-latest
 
