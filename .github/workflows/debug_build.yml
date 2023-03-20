@@ -41,19 +41,35 @@ jobs:
       with:
         ref: ${{inputs.branchName}}
 
-    - name: Setup outputs
-      run: |
-        if [[$BUILD_TYPE == 'debug']]; then
-          APK_NAME_VALUE=$APK_NAME_DEBUG
-        else
-          APK_NAME_VALUE=$APK_NAME_RELEASE
-        fi
+    - name: Setup file name
+      uses: haya14busa/action-cond@v1
+      id: apkFilename
+      with:
+        cond: ${{ $BUILD_TYPE == 'release' }}
+        if_true: $APK_NAME_RELEASE
+        if_false: $APK_NAME_DEBUG
+
+    - name: Setup file path
+      uses: haya14busa/action-cond@v1
+      id: apkFilepath
+      with:
+        cond: ${{ $BUILD_TYPE == 'release' }}
+        if_true: $APK_FILE_PATH_RELEASE
+        if_false: $APK_FILE_PATH_DEBUG
+
+    - name: Use conditional value
+      run: echo "${{ steps.apkFilepath.outputs.value }}"
         
-        if [[$BUILD_TYPE == 'debug']]; then
-          APK_FILE_PATH=$APK_FILE_PATH_DEBUG
-        else
-          APK_FILE_PATH=$APK_FILE_PATH_RELEASE
-        fi
+
+#    - name: Setup outputs
+#      run: |
+#        if [$BUILD_TYPE == 'debug']; then
+#          APK_NAME_VALUE=$APK_NAME_DEBUG
+#          APK_FILE_PATH=$APK_FILE_PATH_DEBUG
+#        else
+#          APK_NAME_VALUE=$APK_NAME_RELEASE
+#          APK_FILE_PATH=$APK_FILE_PATH_RELEASE
+#        fi
     
 
     - name: set up JDK 11
@@ -68,7 +84,7 @@ jobs:
 
     - name: Build with Gradle
       run: |
-        if [[$BUILD_TYPE == 'debug']]; then
+        if [$BUILD_TYPE == 'debug']; then
           ./gradlew assembleDebug
         else
           ./gradlew assembleRelease
@@ -77,5 +93,5 @@ jobs:
     - name: Upload APK
       uses: actions/upload-artifact@v2
       with:
-        name: $APK_NAME
-        path: $APK_FILE_PATH
+        name: ${{ steps.apkFilename.outputs.value }}
+        path: ${{ steps.apkFilepath.outputs.value }}
