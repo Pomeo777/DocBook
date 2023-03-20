@@ -36,9 +36,9 @@ jobs:
 
     steps:
     - name: Checkout to branch
-      if: inputs.branch != ${GITHUB_HEAD_REF}
+      if: inputs.branchName != ${GITHUB_HEAD_REF}
       run:
-        git checkout ${{inputs.branch}}
+        git checkout ${{inputs.branchName}}
 
     - name: Setup outputs
       run: |
