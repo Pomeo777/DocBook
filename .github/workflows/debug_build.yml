@@ -38,8 +38,8 @@ jobs:
     - name: Checkout to branch
       if: inputs.branchName != ${{ github.ref_name }}
       uses: actions/checkout@v3
-        with:
-          ref: ${{inputs.branchName}}
+      with:
+        ref: ${{inputs.branchName}}
 
     - name: Setup outputs
       run: |
