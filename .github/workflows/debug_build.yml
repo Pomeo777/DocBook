@@ -45,7 +45,7 @@ jobs:
       uses: haya14busa/action-cond@v1
       id: apkFilename
       with:
-        cond: ${{ $BUILD_TYPE == 'release' }}
+        cond: $BUILD_TYPE == 'release'
         if_true: $APK_NAME_RELEASE
         if_false: $APK_NAME_DEBUG
 
@@ -53,7 +53,7 @@ jobs:
       uses: haya14busa/action-cond@v1
       id: apkFilepath
       with:
-        cond: ${{ $BUILD_TYPE == 'release' }}
+        cond: $BUILD_TYPE == 'release'
         if_true: $APK_FILE_PATH_RELEASE
         if_false: $APK_FILE_PATH_DEBUG
 
