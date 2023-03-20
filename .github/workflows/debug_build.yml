@@ -56,18 +56,7 @@ jobs:
     - name: Use conditional value
       run: |
         echo "${{ steps.apkFilepath.outputs.value }}"
-        echo "${{ github.ref_name }}"
-
-
-#    - name: Setup outputs
-#      run: |
-#        if [$BUILD_TYPE == 'debug']; then
-#          APK_NAME_VALUE=$APK_NAME_DEBUG
-#          APK_FILE_PATH=$APK_FILE_PATH_DEBUG
-#        else
-#          APK_NAME_VALUE=$APK_NAME_RELEASE
-#          APK_FILE_PATH=$APK_FILE_PATH_RELEASE
-#        fi
+        echo "${{ inputs.branchName }}"
     
 
 #    - name: set up JDK 11
