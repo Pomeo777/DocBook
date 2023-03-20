@@ -24,10 +24,10 @@ jobs:
 
     env:
       BUILD_TYPE: ${{inputs.buildType}}
-      APK_NAME_DEBUG: 'app-debug.apk'
-      APK_NAME_RELEASE: 'app-release.apk'
-      APK_FILE_PATH_DEBUG: 'app/build/outputs/apk/debug/app-debug.apk'
-      APK_FILE_PATH_RELEASE: 'app/build/outputs/apk/release/app-debug.apk'
+      APK_NAME_DEBUG: app-debug.apk
+      APK_NAME_RELEASE: app-release.apk
+      APK_FILE_PATH_DEBUG: app/build/outputs/apk/debug/app-debug.apk
+      APK_FILE_PATH_RELEASE: app/build/outputs/apk/release/app-debug.apk
 
 
     steps:
@@ -42,20 +42,22 @@ jobs:
       id: apkFilename
       with:
         cond: $BUILD_TYPE == 'release'
-        if_true: env.APK_NAME_RELEASE
-        if_false: env.APK_NAME_DEBUG
+        if_true: $APK_NAME_RELEASE
+        if_false: $APK_NAME_DEBUG
 
     - name: Setup file path
       uses: haya14busa/action-cond@v1
       id: apkFilepath
       with:
         cond: $BUILD_TYPE == 'release'
-        if_true: env.APK_FILE_PATH_RELEASE
-        if_false: env.APK_FILE_PATH_DEBUG
+        if_true: $APK_FILE_PATH_RELEASE
+        if_false: $APK_FILE_PATH_DEBUG
 
     - name: Use conditional value
-      run: echo "${{ steps.apkFilepath.outputs.value }}"
-        
+      run: |
+      echo "${{ steps.apkFilepath.outputs.value }}"
+      echo "${{ github.ref_name }}"
+
 
 #    - name: Setup outputs
 #      run: |
@@ -68,26 +70,26 @@ jobs:
 #        fi
     
 
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
-    - name: Build with Gradle
-      run: |
-        if [$BUILD_TYPE == 'debug']; then
-          ./gradlew assembleDebug
-        else
-          ./gradlew assembleRelease
-        fi
-
-    - name: Upload APK
-      uses: actions/upload-artifact@v2
-      with:
-        name: ${{ steps.apkFilename.outputs.value }}
-        path: ${{ steps.apkFilepath.outputs.value }}
+#    - name: set up JDK 11
+#      uses: actions/setup-java@v3
+#      with:
+#        java-version: '11'
+#        distribution: 'temurin'
+#        cache: gradle
+#
+#    - name: Grant execute permission for gradlew
+#      run: chmod +x gradlew
+#
+#    - name: Build with Gradle
+#      run: |
+#        if [$BUILD_TYPE == 'debug']; then
+#          ./gradlew assembleDebug
+#        else
+#          ./gradlew assembleRelease
+#        fi
+#
+#    - name: Upload APK
+#      uses: actions/upload-artifact@v2
+#      with:
+#        name: ${{ steps.apkFilename.outputs.value }}
+#        path: ${{ steps.apkFilepath.outputs.value }}
