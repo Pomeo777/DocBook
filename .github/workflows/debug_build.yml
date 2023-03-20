@@ -13,8 +13,8 @@ on:
           - release
       branchName:
         description: "Branch name"
-          required: false
-          default: 'development'
+        required: false
+        default: 'development'
 
 
 jobs:
