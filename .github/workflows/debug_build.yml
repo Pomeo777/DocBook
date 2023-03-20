@@ -55,8 +55,8 @@ jobs:
 
     - name: Use conditional value
       run: |
-      echo "${{ steps.apkFilepath.outputs.value }}"
-      echo "${{ github.ref_name }}"
+        echo "${{ steps.apkFilepath.outputs.value }}"
+        echo "${{ github.ref_name }}"
 
 
 #    - name: Setup outputs
