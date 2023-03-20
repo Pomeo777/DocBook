@@ -43,13 +43,13 @@ jobs:
 
     - name: Setup outputs
       run: |
-        if: [$BUILD_TYPE == 'debug']; than
+        if: [[$BUILD_TYPE == 'debug'][; than
           APK_NAME_VALUE=$APK_NAME_DEBUG
           APK_FILE_PATH=$APK_FILE_PATH_DEBUG
         else:
           APK_NAME_VALUE=$APK_NAME_RELEASE
           APK_FILE_PATH=$APK_FILE_PATH_RELEASE
-
+        fi
     
 
     - name: set up JDK 11
@@ -64,10 +64,11 @@ jobs:
 
     - name: Build with Gradle
       run: |
-        if: [$BUILD_TYPE == 'debug']; than
+        if: [[$BUILD_TYPE == 'debug']]; than
           ./gradlew assembleDebug
         else:
           ./gradlew assembleRelease
+        fi
 
     - name: Upload APK
       uses: actions/upload-artifact@v2
