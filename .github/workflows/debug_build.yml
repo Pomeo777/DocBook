@@ -29,3 +29,18 @@ jobs:
       with:
         name: app-debug.apk
         path: app/build/outputs/apk/debug/app-debug.apk
+
+  download:
+
+    needs: job_1
+
+    runs-on: windows-latest
+
+    steps:
+      - name: Download a Build Artifact
+        uses: actions/download-artifact@v2.1.1
+        with:
+          # Artifact name
+          name: app-debug.apk
+          # Destination path
+          path: /home/roman
