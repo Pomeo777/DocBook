@@ -51,7 +51,7 @@ jobs:
       run: ./gradlew clean
 
     - name: Set Version information
-      run: echo "VERSION_INFORMATION=$(${{github.workspace}}/TraumaBook/gradlew -q printVersionInformation)" >> $GITHUB_ENV
+      run: echo "VERSION_INFORMATION=$(${{github.workspace}}./TraumaBook/gradlew -q printVersionInformation)" >> $GITHUB_ENV
 
     - name: Show  path and file
       run: |
