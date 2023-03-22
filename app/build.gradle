@@ -106,7 +106,6 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
     }
 }
 
-
-task printVersionInformation {
-    doLast {println "v" + android.defaultConfig.versionName + " (" + android.defaultConfig.versionCode + ")"}
-}
+ rootProject.ext.printVersion = {
+     return println("v" + android.defaultConfig.versionName + " (" + android.defaultConfig.versionCode + ")")
+ }
