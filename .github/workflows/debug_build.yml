@@ -15,6 +15,10 @@ on:
         description: "Branch name"
         required: false
         default: 'development'
+      buildBrand:
+        description: "Brand"
+        required: false
+        default: 'plusTv'
 
 
 jobs:
@@ -24,10 +28,6 @@ jobs:
 
     env:
       BUILD_TYPE: ${{inputs.buildType}}
-      APK_NAME_DEBUG: app-debug.apk
-      APK_NAME_RELEASE: app-release.apk
-      APK_FILE_PATH_DEBUG: app/build/outputs/apk/debug/app-debug.apk
-      APK_FILE_PATH_RELEASE: app/build/outputs/apk/release/app-debug.apk
 
 
     steps:
@@ -37,38 +37,24 @@ jobs:
       with:
         ref: ${{inputs.branchName}}
 
-    - name: Setup file name
-      uses: haya14busa/action-cond@v1
-      id: apkFilename
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
       with:
-        cond: $BUILD_TYPE == 'release'
-        if_true: ${{ env.APK_NAME_RELEASE}}
-        if_false: ${{ env.APK_NAME_DEBUG}}
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
 
-    - name: Setup file path
-      uses: haya14busa/action-cond@v1
-      id: apkFilepath
-      with:
-        cond: $BUILD_TYPE == 'release'
-        if_true: ${{ env.APK_FILE_PATH_RELEASE}}
-        if_false: ${{ env.APK_FILE_PATH_DEBUG}}
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
-    - name: Use conditional value
-      run: |
-        echo "${{ steps.apkFilepath.outputs.value }}"
-        echo "${{ inputs.branchName }}"
-    
+    - name: Set Version information
+      run: echo "VERSION_INFORMATION=$(${{github.workspace}}/gradlew -q printVersionInformation)" >> $GITHUB_ENV
 
-#    - name: set up JDK 11
-#      uses: actions/setup-java@v3
-#      with:
-#        java-version: '11'
-#        distribution: 'temurin'
-#        cache: gradle
-#
-#    - name: Grant execute permission for gradlew
-#      run: chmod +x gradlew
-#
+   - name: Show  path and file
+     run: |
+       echo "${{ inputs.buildBrand }}-${{ inputs.buildType }}-${{ env.VERSION_INFORMATION }}-${{ env.date_today }}"
+       echo "${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ inputs.buildType }}/**/"
+
 #    - name: Build with Gradle
 #      run: |
 #        if [$BUILD_TYPE == 'debug']; then
@@ -80,5 +66,5 @@ jobs:
 #    - name: Upload APK
 #      uses: actions/upload-artifact@v2
 #      with:
-#        name: ${{ steps.apkFilename.outputs.value }}
-#        path: ${{ steps.apkFilepath.outputs.value }}
+#        name: ${{ inputs.buildBrand }}-${{ inputs.buildType }}-${{ env.VERSION_INFORMATION }}-${{ env.date_today }}
+#        path: ${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ inputs.buildType }}/**/

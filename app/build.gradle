@@ -105,3 +105,8 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
         ]
     }
 }
+
+
+task printVersionInformation {
+    println "v" + defaultConfig.versionName + " (" + defaultConfig.versionCode + ")"
+}
