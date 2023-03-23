@@ -6,11 +6,11 @@ on:
       buildType:
         description: "Build type"
         required: false
-        default: 'debug'
+        default: 'Debug'
         type: choice
         options:
-          - debug
-          - release
+          - Debug
+          - Release
       branchName:
         description: "Branch name"
         required: false
@@ -59,6 +59,9 @@ jobs:
       run: |
         echo "${{ inputs.buildBrand }}-${{ inputs.buildType }}-${{ env.VERSION_INFO }}-${{ env.BUILD_DATE }}"
         echo "${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ inputs.buildType }}/**/"
+        
+    - name: Build with Gradle
+      run: ./gradlew assemble${{ inputs.buildType }}
        
 
 #    - name: Build with Gradle
