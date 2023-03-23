@@ -50,14 +50,14 @@ jobs:
     - name: Clean build
       run: ./gradlew clean
 
-    - name: Set Version information
+    - name: Set build information
       run: |
-         echo "VERSION_INFORMATION=$(${{github.workspace}}/gradlew -q printVersionInformation)" >> $GITHUB_ENV
-         ./gradlew -q printVersionInformation
+         echo "VERSION_INFO=$(${{github.workspace}}/gradlew -q printVersionInformation)" >> $GITHUB_ENV
+         echo "BUILD_DATE=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
 
     - name: Show  path and file
       run: |
-        echo "${{ inputs.buildBrand }}-${{ inputs.buildType }}-${{ env.VERSION_INFORMATION }}-${{ env.date_today }}"
+        echo "${{ inputs.buildBrand }}-${{ inputs.buildType }}-${{ env.VERSION_INFO }}-${{ env.BUILD_DATE }}"
         echo "${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ inputs.buildType }}/**/"
        
 
@@ -72,5 +72,5 @@ jobs:
 #    - name: Upload APK
 #      uses: actions/upload-artifact@v2
 #      with:
-#        name: ${{ inputs.buildBrand }}-${{ inputs.buildType }}-${{ env.VERSION_INFORMATION }}-${{ env.date_today }}
+#        name: ${{ inputs.buildBrand }}-${{ inputs.buildType }}-${{ env.VERSION_INFO }}-${{ env.BUILD_DATE }}
 #        path: ${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ inputs.buildType }}/**/
