@@ -44,7 +44,7 @@ jobs:
     steps:
     - name: Manage inputs
       run: |
-        if [ ${{ github.event_name }} == workflow_dispatch]; then
+        if [ github.event_name == workflow_dispatch]; then
           echo "BUILD_TYPE=${{ inputs.buildType }}" >> $GITHUB_ENV
           echo "BUILD_BRAND=${{ inputs.buildBrand }}" >> $GITHUB_ENV
           echo "BUILD_BRANCH_NAME=${{ inputs.branchName }}" >> $GITHUB_ENV
