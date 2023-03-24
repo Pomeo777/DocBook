@@ -21,15 +21,22 @@ on:
         default: 'plusTv'
 
 
+  pull_request_target:
+    types:
+      - closed
+    branches:
+      - 'ci_test'
+      - 'development'
+
+env:
+  BUILD_TYPE: ${{inputs.buildType}}
+
+
 jobs:
+
   build:
+    if: ${{ github.event.pull_request.merged || github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
-
-
-    env:
-      BUILD_TYPE: ${{inputs.buildType}}
-
-
     steps:
     - name: Checkout to branch
       if: inputs.branchName != ${{ github.ref_name }}
