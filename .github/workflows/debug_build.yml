@@ -45,13 +45,13 @@ jobs:
     - name: Manage inputs
       run: |
         if [ github.event_name == 'workflow_dispatch' ]; then
-          echo "BUILD_TYPE=${{ inputs.buildType }} >> $GITHUB_ENV
-          echo "BUILD_BRAND=${{ inputs.buildBrand }} >> $GITHUB_ENV
-          echo "BUILD_BRANCH_NAME=${{ inputs.branchName }} >> $GITHUB_ENV
+          echo "BUILD_TYPE=${{ inputs.buildType }}" >> $GITHUB_ENV
+          echo "BUILD_BRAND=${{ inputs.buildBrand }}" >> $GITHUB_ENV
+          echo "BUILD_BRANCH_NAME=${{ inputs.branchName }}" >> $GITHUB_ENV
         else
-          echo "BUILD_TYPE=${{ env.DEFAULT_BUILD_TYPE }} >> $GITHUB_ENV
-          echo "BUILD_BRAND=${{ env.DEFAULT_BUILD_BRAND }} >> $GITHUB_ENV
-          echo "BUILD_BRANCH_NAME=${{ github.ref_name }} >> $GITHUB_ENV
+          echo "BUILD_TYPE=${{ env.DEFAULT_BUILD_TYPE }}" >> $GITHUB_ENV
+          echo "BUILD_BRAND=${{ env.DEFAULT_BUILD_BRAND }}" >> $GITHUB_ENV
+          echo "BUILD_BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
         fi
 
     - name: Checkout to branch
@@ -70,9 +70,6 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Clean build
-      run: ./gradlew clean
-
     - name: Set build information
       run: |
          echo "VERSION_INFO=$(${{github.workspace}}/gradlew -q printVersionInformation)" >> $GITHUB_ENV
@@ -80,8 +77,8 @@ jobs:
 
     - name: Show  path and file
       run: |
-        echo "${{ env.BUILD_BRAND }}-${{ env.DEFAULT_BUILD_TYPE }}-${{ env.VERSION_INFO }}-${{ env.BUILD_DATE }}"
-        echo "${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ env.DEFAULT_BUILD_TYPE }}/**/"
+        echo "${{ env.BUILD_BRAND }}-${{ env.BUILD_TYPE }}-${{ env.VERSION_INFO }}-${{ env.BUILD_DATE }}"
+        echo "${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ env.BUILD_TYPE }}/**/"
         
 #    - name: Build with Gradle
 #      run: ./gradlew assemble${{ inputs.buildType }}
