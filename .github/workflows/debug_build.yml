@@ -30,9 +30,9 @@ on:
 
 env:
 
-  DEFAULT_BUILD_TYPE: Debug
-  DEFAULT_BUILD_BRAND: PlusTv
-  DEFAULT_BUILD_BRANCH_NAME: ci_test
+  DEFAULT_BUILD_TYPE: 'Debug'
+  DEFAULT_BUILD_BRAND: 'PlusTv'
+  DEFAULT_BUILD_BRANCH_NAME: 'ci_test'
 
 
 jobs:
@@ -49,8 +49,8 @@ jobs:
           echo "BUILD_BRAND=${{ inputs.buildBrand }} >> $GITHUB_ENV
           echo "BUILD_BRANCH_NAME=${{ inputs.branchName }} >> $GITHUB_ENV
         else
-          echo "BUILD_TYPE=${{ DEFAULT_BUILD_TYPE }} >> $GITHUB_ENV
-          echo "BUILD_BRAND=${{ DEFAULT_BUILD_BRAND }} >> $GITHUB_ENV
+          echo "BUILD_TYPE=${{ env.DEFAULT_BUILD_TYPE }} >> $GITHUB_ENV
+          echo "BUILD_BRAND=${{ env.DEFAULT_BUILD_BRAND }} >> $GITHUB_ENV
           echo "BUILD_BRANCH_NAME=${{ github.ref_name }} >> $GITHUB_ENV
         fi
 
