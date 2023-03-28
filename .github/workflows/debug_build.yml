@@ -19,6 +19,14 @@ on:
         description: "Brand"
         required: false
         default: 'plusTv'
+      fileType:
+        description: 'Type of build file'
+        required: true
+        default: apk
+        type: choice
+        options:
+          - apk
+          - aab
 
 
   pull_request_target:
@@ -27,9 +35,7 @@ on:
     branches:
       - 'ci_test'
       - 'development'
-  push:
-    branches:
-      - 'ci_test'
+
 
 env:
 
@@ -37,12 +43,15 @@ env:
   DEFAULT_BUILD_BRAND: 'PlusTv'
   DEFAULT_BUILD_BRANCH_NAME: 'ci_test'
 
+  apk: assemble
+  aab: bundle
+
 
 jobs:
 
   build:
     # Start workflow only if it was run manually using 'workflow_dispatch' or pull request was merged
-    if: ${{ github.event.pull_request.merged || github.event_name == 'workflow_dispatch' || github.event_name == 'push'}}
+    if: ${{ github.event.pull_request.merged || github.event_name == 'workflow_dispatch'}}
     runs-on: ubuntu-latest
     steps:
     - name: Manage inputs
@@ -51,10 +60,12 @@ jobs:
           echo "BUILD_TYPE=${{ inputs.buildType }}" >> $GITHUB_ENV
           echo "BUILD_BRAND=${{ inputs.buildBrand }}" >> $GITHUB_ENV
           echo "BUILD_BRANCH_NAME=${{ inputs.branchName }}" >> $GITHUB_ENV
+          echo "TASK_NAME_PREFIX=${{ env[inputs.server_name] }}" >> $GITHUB_ENV
         else
           echo "BUILD_TYPE=${{ env.DEFAULT_BUILD_TYPE }}" >> $GITHUB_ENV
           echo "BUILD_BRAND=${{ env.DEFAULT_BUILD_BRAND }}" >> $GITHUB_ENV
           echo "BUILD_BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
+          echo "TASK_NAME_PREFIX=${{ env.apk }}" >> $GITHUB_ENV
         fi
 
     - name: Checkout to branch
