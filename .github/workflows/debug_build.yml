@@ -56,6 +56,10 @@ jobs:
     steps:
     - name: Manage inputs
       run: |
+        echo "inputs branch: ${{ inputs.branchName}}"
+        echo "ref branch: ${{ github.ref_name }}"
+        fi
+        
         if [ ${{github.event_name}} == workflow_dispatch ]; then
           echo "BUILD_TYPE=${{ inputs.buildType }}" >> $GITHUB_ENV
           echo "BUILD_BRAND=${{ inputs.buildBrand }}" >> $GITHUB_ENV
@@ -67,32 +71,35 @@ jobs:
           echo "BUILD_BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
           echo "TASK_NAME_PREFIX=${{ env.apk }}" >> $GITHUB_ENV
         fi
+        
+        echo "branch: ${{ env.BUILD_BRANCH_NAME }}"
+        fi
 
-    - name: Checkout to branch
-      if: env.BUILD_BRANCH_NAME != ${{ github.ref_name }}
-      uses: actions/checkout@v3
-      with:
-        ref: ${{env.BUILD_BRANCH_NAME}}
-
-    - name: set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: gradle
-
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
-
-    - name: Set build information
-      run: |
-         echo "VERSION_INFO=$(${{github.workspace}}/gradlew -q printVersionInformation)" >> $GITHUB_ENV
-         echo "BUILD_DATE=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
-
-    - name: Show  path and file
-      run: |
-        echo "${{ env.BUILD_BRAND }}-${{ env.BUILD_TYPE }}-${{ env.VERSION_INFO }}-${{ env.BUILD_DATE }}"
-        echo "${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ env.BUILD_TYPE }}/**/"
+#    - name: Checkout to branch
+#      if: env.BUILD_BRANCH_NAME != ${{ github.ref_name }}
+#      uses: actions/checkout@v3
+#      with:
+#        ref: ${{env.BUILD_BRANCH_NAME}}
+#
+#    - name: set up JDK 11
+#      uses: actions/setup-java@v3
+#      with:
+#        java-version: '11'
+#        distribution: 'temurin'
+#        cache: gradle
+#
+#    - name: Grant execute permission for gradlew
+#      run: chmod +x gradlew
+#
+#    - name: Set build information
+#      run: |
+#         echo "VERSION_INFO=$(${{github.workspace}}/gradlew -q printVersionInformation)" >> $GITHUB_ENV
+#         echo "BUILD_DATE=$(date +'%Y-%m-%dT%H:%M:%S')" >> $GITHUB_ENV
+#
+#    - name: Show  path and file
+#      run: |
+#        echo "${{ env.BUILD_BRAND }}-${{ env.BUILD_TYPE }}-${{ env.VERSION_INFO }}-${{ env.BUILD_DATE }}"
+#        echo "${{ env.MAIN_PROJECT_MODULE }}/build/outputs/${{ env.BUILD_TYPE }}/**/"
         
 #    - name: Build with Gradle
 #      run: ./gradlew assemble${{ inputs.buildType }}
