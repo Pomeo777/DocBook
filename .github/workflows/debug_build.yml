@@ -62,16 +62,19 @@ jobs:
         echo "inputs branch: ${{ inputs.branchName}}"
         echo "ref branch: ${{ github.ref_name }}"
         
+        if [ ${{ inputs.branchName }} == '' ]; then
+          echo "BUILD_BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
+        else
+          echo "BUILD_BRANCH_NAME=${{ inputs.branchName }}" >> $GITHUB_ENV
+        fi
         
         if [ ${{github.event_name}} == workflow_dispatch ]; then
           echo "BUILD_TYPE=${{ inputs.buildType }}" >> $GITHUB_ENV
           echo "BUILD_BRAND=${{ inputs.buildBrand }}" >> $GITHUB_ENV
-          echo "BUILD_BRANCH_NAME=${{ inputs.branchName }}" >> $GITHUB_ENV
           echo "TASK_NAME_PREFIX=${{ env[inputs.fileType] }}" >> $GITHUB_ENV
         else
           echo "BUILD_TYPE=${{ env.DEFAULT_BUILD_TYPE }}" >> $GITHUB_ENV
           echo "BUILD_BRAND=${{ env.DEFAULT_BUILD_BRAND }}" >> $GITHUB_ENV
-          echo "BUILD_BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
           echo "TASK_NAME_PREFIX=${{ env.apk }}" >> $GITHUB_ENV
         fi
 
