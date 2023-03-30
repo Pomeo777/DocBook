@@ -74,8 +74,9 @@ jobs:
           echo "BUILD_BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
           echo "TASK_NAME_PREFIX=${{ env.apk }}" >> $GITHUB_ENV
         fi
-        
-        echo "branch: ${{ env.BUILD_BRANCH_NAME }}"
+
+    - name: Set build information
+      run: echo "b branch ${{ env.BUILD_BRANCH_NAME }}"
         
 
 #    - name: Checkout to branch
