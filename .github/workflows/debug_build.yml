@@ -62,7 +62,7 @@ jobs:
         echo "inputs branch: ${{ inputs.branchName}}"
         echo "ref branch: ${{ github.ref_name }}"
         
-        if [ -z "${inputs.branchName}" ]; then
+        if [  "${inputs.branchName}" == "" ]; then
           echo "inputs branch IS EMPTY"
           echo "BUILD_BRANCH_NAME=${{ github.ref_name }}" >> $GITHUB_ENV
         else
